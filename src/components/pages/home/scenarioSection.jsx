@@ -4,6 +4,15 @@ import BlackButton from "../../common/BlackButton";
 
 const categories = [
   {
+    key: "supply",
+    label: "Supply Chain",
+    images: ["/images/home/usecase/SupplyChain.png"],
+    gradient:
+      "linear-gradient(359.77deg, rgba(216, 230, 255, 0.75) 52.68%, rgba(255, 255, 255, 0) 119.66%)",
+    description:
+      "Agentic AI transforms supply chains into proactive, intelligent networks, predicting disruptions, optimizing flows, and ensuring products reach the right place at the right time with unmatched efficiency.",
+  },
+  {
     key: "health",
     label: "Health Care",
     images: ["/images/home/usecase/Health-care.png"],
@@ -12,15 +21,6 @@ const categories = [
        "linear-gradient(359.77deg, rgba(202, 236, 188, 0.51) 52.68%, rgba(255, 255, 255, 0) 119.66%)",
     description:
       "Agentic AI powers healthcare that is precise, predictive, and compassionate, enabling personalized patient care, smarter operations, and lighter burdens for caregivers.",
-  },
-  {
-    key: "supply",
-    label: "Supply Chain",
-    images: ["/images/home/usecase/SupplyChain.png"],
-    gradient:
-      "linear-gradient(359.77deg, rgba(216, 230, 255, 0.75) 52.68%, rgba(255, 255, 255, 0) 119.66%)",
-    description:
-      "Agentic AI transforms supply chains into proactive, intelligent networks, predicting disruptions, optimizing flows, and ensuring products reach the right place at the right time with unmatched efficiency.",
   },
   {
     key: "hr",
@@ -75,8 +75,21 @@ const RealScenariosSection = () => {
   const viewportRef = useRef(null);
   const [offset, setOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  const PEEK_PX = 180; // How much of the next slide to show
+  const [PEEK_PX, setPEEK_PX] = useState(180);
   const GAP_PX = 16; // Corresponds to gap-4 class
+
+  useEffect(() => {
+    const updatePeek = () => {
+      if (window.innerWidth < 450) {
+        setPEEK_PX(100);
+      } else {
+        setPEEK_PX(180);
+      }
+    };
+    updatePeek();
+    window.addEventListener("resize", updatePeek);
+    return () => window.removeEventListener("resize", updatePeek);
+  }, []);
 
   // drag state
   const draggingRef = useRef(false);
@@ -93,7 +106,7 @@ const RealScenariosSection = () => {
     updateOffset();
     window.addEventListener('resize', updateOffset);
     return () => window.removeEventListener('resize', updateOffset);
-  }, [index]);
+  }, [index, PEEK_PX]);
 
   const onPointerDown = (e) => {
     if (!viewportRef.current) return;
@@ -142,13 +155,13 @@ const RealScenariosSection = () => {
       className="w-full bg-no-repeat bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: "url('/images/home/Background-home-RS.png')" }}
     >
-      <div className="max-w-[1480px] mx-auto xs:px-5 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
+      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-10 lg:gap-14 items-stretch">
           {/* Left column - two rows stretched to top and bottom */}
-          <div className="flex flex-col justify-between min-h-[420px] lg:min-h-[520px]">
+          <div className="flex flex-col justify-between lg:min-h-[520px]">
             {/* Row 1: Heading (Desktop H3) */}
             <div>
-              <h3 className="font-manrope font-bold text-[28px] md:text-[30px] lg:text-[36px] leading-tight text-black scenario-section">
+              <h3 className="font-manrope font-bold text-[24px] md:text-[30px] lg:text-[36px] leading-tight text-black scenario-section">
                 Beyond Hype: <br/>Agentic AI in Action
               </h3>
             </div>
@@ -161,7 +174,7 @@ const RealScenariosSection = () => {
                 size="medium"
                 variant="black"
                 className="text-lg font-medium font-manrope px-6 py-3 w-fit"
-                onClick={() => navigate('/use-cases')}
+                onClick={() => navigate("/usecase")}
               >
                 View More
               </BlackButton>
@@ -219,7 +232,7 @@ const RealScenariosSection = () => {
                         className="w-full h-full object-contain"
                         draggable="false"
                       />
-                      <div
+                        <div
                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ background: cat.gradient }}
                       />
@@ -235,7 +248,10 @@ const RealScenariosSection = () => {
                             size="small"
                             variant="black"
                             className="px-4 py-2"
-                            onClick={() => navigate(`/usecase?category=${keyToUsecaseCategory[cat.key]}`)}
+                            onClick={(e) => {
+                              e.stopPropagation(); 
+                              navigate(`/usecase?category=${keyToUsecaseCategory[cat.key]}`)
+                            }}
                           >
                             Know more
                           </BlackButton>
