@@ -9,10 +9,17 @@ import UseCasesGrid from "./UseCasesGrid";
 
 // Main App component
 export const UseCase = () => {
-  const [activeCategory, setActiveCategory] = useState("supply-chain");
-  const [showAllUseCases, setShowAllUseCases] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const getCategoryFromURL = () => {
+    const searchParams = new URLSearchParams(location.search);
+    const categoryParam = searchParams.get('category');
+    return categoryParam || "supply-chain";
+  };
+
+  const [activeCategory, setActiveCategory] = useState(getCategoryFromURL);
+  const [showAllUseCases, setShowAllUseCases] = useState(false);
 
   // Dynamic data mapping
   const dataMapping = useMemo(() => ({
@@ -70,11 +77,9 @@ export const UseCase = () => {
 
   // Handle URL parameters to set active category
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const categoryParam = searchParams.get('category');
-    
-    if (categoryParam && dataMapping[categoryParam]) {
-      setActiveCategory(categoryParam);
+    const categoryFromURL = getCategoryFromURL();
+    if (categoryFromURL && dataMapping[categoryFromURL]) {
+      setActiveCategory(categoryFromURL);
     }
     
     // Scroll to top when component mounts or category changes
