@@ -12,6 +12,15 @@ const categories = [
     description:
       "Agentic AI transforms supply chains into proactive, intelligent networks, predicting disruptions, optimizing flows, and ensuring products reach the right place at the right time with unmatched efficiency.",
   },
+    {
+    key: "it",
+    label: "Information Technology",
+    images: ["/images/home/usecase/InformationTechnology.png"],
+    gradient:
+    "linear-gradient(359.77deg, rgba(216, 230, 255, 0.86) 52.68%, rgba(255, 255, 255, 0) 119.66%)",
+    description:
+      "Agentic AI turns IT into a strategic engine, self-monitoring, self-healing, and continuously optimizing systems to accelerate digital transformation and reduce risk.",
+  },
   {
     key: "health",
     label: "Health Care",
@@ -30,15 +39,6 @@ const categories = [
     "linear-gradient(359.77deg, rgba(249, 238, 241, 0.94) 52.68%, rgba(255, 255, 255, 0) 119.66%)",
     description:
       "Agentic AI empowers HR to unlock human potential, from intelligent recruitment and predictive retention to adaptive learning, turning people-first strategies into scalable impact.",
-  },
-  {
-    key: "it",
-    label: "Information Technology",
-    images: ["/images/home/usecase/InformationTechnology.png"],
-    gradient:
-    "linear-gradient(359.77deg, rgba(216, 230, 255, 0.86) 52.68%, rgba(255, 255, 255, 0) 119.66%)",
-    description:
-      "Agentic AI turns IT into a strategic engine, self-monitoring, self-healing, and continuously optimizing systems to accelerate digital transformation and reduce risk.",
   },
   {
     key: "ins",
