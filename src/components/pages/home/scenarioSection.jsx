@@ -161,6 +161,7 @@ const RealScenariosSection = () => {
                 size="medium"
                 variant="black"
                 className="text-lg font-medium font-manrope px-6 py-3 w-fit"
+                onClick={() => navigate('/use-cases')}
               >
                 View More
               </BlackButton>
